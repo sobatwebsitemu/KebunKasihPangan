@@ -31,6 +31,11 @@
             --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
 
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px; 
+        }
+
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
@@ -38,7 +43,6 @@
             color: var(--text-color);
             transition: background-color 0.4s ease, color 0.4s ease;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
         /* Efek Cahaya Bergerak Terbalik (Kanan ke Kiri) */
@@ -52,13 +56,8 @@
         }
 
         @keyframes shineReverse {
-            0% {
-                background-position: 200% center;
-            }
-
-            100% {
-                background-position: -200% center;
-            }
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
         }
 
         /* Navbar */
@@ -85,10 +84,22 @@
             gap: 10px;
         }
 
+        /* Pengaturan Transisi untuk Menyembunyikan Navbar Desktop */
         .nav-right {
             display: flex;
             align-items: center;
             gap: 25px;
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        .nav-right.hidden-nav {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(30px); 
+            pointer-events: none; 
         }
 
         .nav-links {
@@ -110,7 +121,7 @@
             transform: translateY(-2px);
         }
 
-        /* Ikon Navbar */
+        /* Ikon Navbar Umum */
         .icon-btn {
             background: transparent;
             border: none;
@@ -132,6 +143,25 @@
         .icon-btn.wa-nav:hover {
             color: #25D366 !important;
             text-shadow: 0 0 10px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Desain Khusus Tombol Toggle Zen Mode agar lebih Profesional */
+        #desktop-nav-toggle {
+            margin-left: 15px;
+            color: var(--primary-color);
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        #desktop-nav-toggle:hover {
+            background: var(--primary-color);
+            color: #ffffff;
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
         }
 
         .mobile-actions {
@@ -158,6 +188,7 @@
             text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9);
             pointer-events: none;
             width: 90%;
+            max-width: 800px;
         }
 
         .hero-title h1 {
@@ -169,6 +200,14 @@
             -webkit-background-clip: text;
             background-clip: text;
             animation: shineReverse 5s linear infinite;
+        }
+
+        .hero-title p {
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            margin-top: 15px;
+            line-height: 1.6;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+            font-weight: 300;
         }
 
         .swiper-beranda {
@@ -210,22 +249,22 @@
         }
 
         @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-15px) translateX(-50%); }
+            60% { transform: translateY(-7px) translateX(-50%); }
+        }
 
-            0%,
-            20%,
-            50%,
-            80%,
-            100% {
-                transform: translateY(0) translateX(-50%);
-            }
+        /* Animasi Muncul Halus saat Scroll */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, visibility;
+        }
 
-            40% {
-                transform: translateY(-15px) translateX(-50%);
-            }
-
-            60% {
-                transform: translateY(-7px) translateX(-50%);
-            }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: none;
         }
 
         /* Layout Utama */
@@ -285,7 +324,6 @@
         /* Lokasi Peta & Tombol Melayang */
         .map-container {
             position: relative;
-            /* Menjadi titik acuan untuk tombol */
             width: 100%;
         }
 
@@ -347,25 +385,11 @@
             overflow: hidden;
         }
 
-        .soc-btn.ig {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-        }
-
-        .soc-btn.tt {
-            background: #000000;
-        }
-
-        .soc-btn.yt {
-            background: #FF0000;
-        }
-
-        .soc-btn.web {
-            background: var(--primary-color);
-        }
-
-        .soc-btn.wa {
-            background: #25D366;
-        }
+        .soc-btn.ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .soc-btn.tt { background: #000000; }
+        .soc-btn.yt { background: #FF0000; }
+        .soc-btn.web { background: var(--primary-color); }
+        .soc-btn.wa { background: #25D366; }
 
         .soc-btn::before {
             content: '';
@@ -384,9 +408,7 @@
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
         }
 
-        .soc-btn:hover::before {
-            left: 100%;
-        }
+        .soc-btn:hover::before { left: 100%; }
 
         /* Back to Top Button */
         #backToTop {
@@ -421,6 +443,8 @@
 
         /* Mode Mobile */
         @media (max-width: 768px) {
+            #desktop-nav-toggle { display: none !important; } 
+            
             .nav-right {
                 position: fixed;
                 top: 70px;
@@ -431,30 +455,18 @@
                 height: calc(100vh - 70px);
                 padding-top: 50px;
                 box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-                transition: right 0.4s ease;
+                transition: right 0.4s ease; 
                 backdrop-filter: blur(10px);
                 justify-content: flex-start;
                 gap: 40px;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important;
             }
-
-            .nav-right.active {
-                right: 0;
-            }
-
-            .nav-links {
-                flex-direction: column;
-                align-items: center;
-                gap: 30px;
-                font-size: 1.2rem;
-            }
-
-            .mobile-actions {
-                display: flex;
-            }
-
-            .icon-btn.wa-nav {
-                display: none;
-            }
+            .nav-right.active { right: 0; }
+            .nav-links { flex-direction: column; align-items: center; gap: 30px; font-size: 1.2rem; }
+            .mobile-actions { display: flex; }
+            .icon-btn.wa-nav { display: none; }
         }
     </style>
 </head>
@@ -462,25 +474,35 @@
 <body data-theme="dark">
 
     <nav class="navbar">
-        <a href="#" class="logo shine-text">Kebun Kasih Pangan</a>
+        <a href="#" class="logo shine-text">
+            <img src="logo.png" alt="Logo KKP" style="height: 30px; width: auto; border-radius: 50%;">
+            Kebun Kasih Pangan
+        </a>
 
-        <div class="nav-right" id="nav-menu">
-            <ul class="nav-links">
-                <li><a href="#beranda" class="shine-text nav-item">Beranda</a></li>
-                <li><a href="#proses" class="shine-text nav-item">Proses Tanam</a></li>
-                <li><a href="#kategori" class="shine-text nav-item">Hasil Kebun</a></li>
-                <li><a href="#lokasi" class="shine-text nav-item">Lokasi</a></li>
-                <li><a href="#kontak" class="shine-text nav-item">Temukan Kami</a></li>
-            </ul>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <div class="nav-right" id="nav-menu">
+                <ul class="nav-links">
+                    <li><a href="#beranda" class="shine-text nav-item">Beranda</a></li>
+                    <li><a href="#proses" class="shine-text nav-item">Proses Tanam</a></li>
+                    <li><a href="#kategori" class="shine-text nav-item">Hasil Kebun</a></li>
+                    <li><a href="#order" class="shine-text nav-item">Pesan</a></li>
+                    <li><a href="#lokasi" class="shine-text nav-item">Lokasi</a></li>
+                    <li><a href="#kontak" class="shine-text nav-item">Temukan Kami</a></li>
+                </ul>
 
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <a href="https://wa.me/6282287788880" class="icon-btn wa-nav" style="color: #25D366;" title="WhatsApp">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <button class="icon-btn theme-toggle" title="Ganti Tema">
-                    <i class="fas fa-sun"></i>
-                </button>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <a href="https://wa.me/6282287788880" class="icon-btn wa-nav" style="color: #25D366;" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <button class="icon-btn theme-toggle" title="Ganti Tema">
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </div>
             </div>
+            
+            <button class="icon-btn" id="desktop-nav-toggle" title="Sembunyikan Menu">
+                <i class="fas fa-chevron-right"></i>
+            </button>
         </div>
 
         <div class="mobile-actions">
@@ -493,6 +515,7 @@
     <div id="beranda" class="hero-section">
         <div class="hero-title">
             <h1>Kebun Kasih Pangan</h1>
+            <p>Menyediakan sayuran segar dan berkualitas unggul, ditanam dengan sepenuh hati untuk menghadirkan kebaikan alam langsung ke meja makan Anda.</p>
         </div>
         <div class="swiper swiper-beranda">
             <div class="swiper-wrapper">
@@ -509,7 +532,7 @@
         <a href="#proses" class="scroll-down"><i class="fas fa-chevron-down"></i></a>
     </div>
 
-    <section id="proses">
+    <section id="proses" class="fade-in-section">
         <h2 class="section-title shine-text">Tahapan Penanaman</h2>
 
         <h3 style="color: var(--primary-color); text-align: center;">Proses 1: Proses Awal Kegiatan Kebun</h3>
@@ -524,7 +547,7 @@
                 <div class="swiper-slide"><img src="pro4.jpeg">
                     <div class="slide-caption">Proses Semai Awal Bibit Terong</div>
                 </div>
-                    <div class="swiper-slide"><img src="pro2.jpeg">
+                <div class="swiper-slide"><img src="pro2.jpeg">
                     <div class="slide-caption">Semai Siap Tanam Bibit Cabe</div>
                 </div>
                 <div class="swiper-slide"><img src="pro3.jpeg">
@@ -559,7 +582,7 @@
         </div>
     </section>
 
-    <section id="kategori">
+    <section id="kategori" class="fade-in-section">
         <h2 class="section-title shine-text">Kategori Hasil Kebun</h2>
 
         <h3 style="color: var(--primary-color);">🌶️ Panen Cabe</h3>
@@ -609,7 +632,17 @@
         </div>
     </section>
 
-    <section id="lokasi">
+    <section id="order" class="fade-in-section" style="text-align: center; background-color: var(--card-bg); border-radius: 16px; padding: 40px 20px; box-shadow: var(--shadow); margin-bottom: 50px;">
+        <h2 class="section-title shine-text" style="margin-bottom: 20px;">Pesan Hasil Kebun Kami</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 30px; line-height: 1.6;">
+            Kami menerima pesanan partai besar maupun kecil untuk cabai dan terong segar langsung dari kebun. Kualitas terjamin dengan harga terbaik!
+        </p>
+        <a href="https://wa.me/6282287788880" class="btn-telusuri" style="position: static; display: inline-flex; width: auto; transform: none; font-size: 1.1rem;">
+            <i class="fab fa-whatsapp"></i> Hubungi via WhatsApp
+        </a>
+    </section>
+
+    <section id="lokasi" class="fade-in-section">
         <h2 class="section-title shine-text">Lokasi Kebun</h2>
         <div class="map-container">
             <iframe
@@ -623,7 +656,7 @@
         </div>
     </section>
 
-    <section id="kontak" style="text-align: center; padding-bottom: 100px;">
+    <section id="kontak" class="fade-in-section" style="text-align: center; padding-bottom: 80px;">
         <h2 class="section-title shine-text">Temukan Kami</h2>
         <div class="social-buttons">
             <a href="https://www.instagram.com/ilhamramadan5" class="soc-btn ig" title="Instagram"><i
@@ -637,6 +670,15 @@
                     class="fab fa-whatsapp"></i></a>
         </div>
     </section>
+
+    <footer style="text-align: center; padding: 25px 20px; background-color: var(--nav-bg); backdrop-filter: blur(10px); border-top: 1px solid rgba(128,128,128,0.2);">
+        <p style="margin: 0; font-size: 0.95rem; color: var(--text-color);">
+            © 2026 Portofolio Kebun Kasih Pangan Ilham. Created by 
+            <a href="https://sobatwebsitemu.github.io/CVPorto/" target="_blank" class="shine-text" style="text-decoration: none; font-weight: bold; display: inline-block;">
+                Eizitpie Production
+            </a>.
+        </p>
+    </footer>
 
     <button id="backToTop" title="Kembali ke atas"><i class="fas fa-arrow-up"></i></button>
 
@@ -674,14 +716,54 @@
 
         navItems.forEach(item => {
             item.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                hamburger.querySelector('i').className = 'fas fa-bars';
+                if(window.innerWidth <= 768) {
+                    navMenu.classList.remove('active');
+                    hamburger.querySelector('i').className = 'fas fa-bars';
+                }
             });
         });
 
-        // Konfigurasi Swiper
-        new Swiper(".swiper-beranda", { loop: true, autoplay: { delay: 4000 }, navigation: { nextEl: ".swiper-beranda .swiper-button-next", prevEl: ".swiper-beranda .swiper-button-prev" } });
-        new Swiper(".swiper-biasa", { slidesPerView: 1, spaceBetween: 20, navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }, breakpoints: { 640: { slidesPerView: 2 }, 960: { slidesPerView: 3 } } });
+        // Logika Tombol Hide/Show Navbar Desktop
+        const desktopToggleBtn = document.getElementById('desktop-nav-toggle');
+        
+        desktopToggleBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('hidden-nav');
+            const icon = desktopToggleBtn.querySelector('i');
+            
+            // Mengubah Ikon saat diklik
+            if (navMenu.classList.contains('hidden-nav')) {
+                icon.className = 'fas fa-chevron-left'; 
+                desktopToggleBtn.setAttribute('title', 'Tampilkan Menu');
+            } else {
+                icon.className = 'fas fa-chevron-right'; 
+                desktopToggleBtn.setAttribute('title', 'Sembunyikan Menu');
+            }
+        });
+
+        // Konfigurasi Swiper dengan penambahan 'speed' untuk transisi lebih smooth
+        new Swiper(".swiper-beranda", { 
+            loop: true, 
+            speed: 1000, 
+            autoplay: { delay: 4000 }, 
+            navigation: { 
+                nextEl: ".swiper-beranda .swiper-button-next", 
+                prevEl: ".swiper-beranda .swiper-button-prev" 
+            } 
+        });
+
+        new Swiper(".swiper-biasa", { 
+            slidesPerView: 1, 
+            spaceBetween: 20, 
+            speed: 800,
+            navigation: { 
+                nextEl: ".swiper-button-next", 
+                prevEl: ".swiper-button-prev" 
+            }, 
+            breakpoints: { 
+                640: { slidesPerView: 2 }, 
+                960: { slidesPerView: 3 } 
+            } 
+        });
 
         // Logika Tombol Kembali Ke Atas
         const backToTopBtn = document.getElementById("backToTop");
@@ -694,6 +776,26 @@
         });
         backToTopBtn.addEventListener("click", () => {
             window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        // Logika Animasi Scroll (Intersection Observer)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
         });
     </script>
 </body>
