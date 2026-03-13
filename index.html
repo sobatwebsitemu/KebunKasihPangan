@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kebun Kasih Pangan</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+    <style>
+        /* 🎨 Variabel Tema (Light & Dark) */
+        :root {
+            --bg-color: #f9fbf9;
+            --text-color: #333;
+            --nav-bg: #ffffff;
+            --primary-color: #2E8B57; /* Hijau Laut */
+            --card-bg: #ffffff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --nav-bg: #1e1e1e;
+            --card-bg: #242424;
+            --shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* 🧭 Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background-color: var(--nav-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        /* 📦 Container Utama */
+        section {
+            padding: 60px 5%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        /* 🖼️ Slider Styles */
+        .swiper {
+            width: 100%;
+            padding-bottom: 40px; /* Ruang untuk pagination */
+        }
+
+        .swiper-slide {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .slide-title {
+            padding: 15px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* 📍 Lokasi & Kontak */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background-color: var(--card-bg);
+            text-decoration: none;
+            color: var(--text-color);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            color: var(--primary-color);
+        }
+
+        .social-link i {
+            font-size: 24px;
+        }
+
+        /* Responsif untuk HP */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; /* Menyembunyikan link di HP agar rapi, bisa ditambah hamburger menu nanti */
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#" class="logo">🌱 Kebun Kasih Pangan</a>
+        <ul class="nav-links">
+            <li><a href="#proses">Proses Tanam</a></li>
+            <li><a href="#kategori">Hasil Kebun</a></li>
+            <li><a href="#lokasi">Lokasi</a></li>
+            <li><a href="#kontak">Temukan Saya</a></li>
+        </ul>
+        <button class="theme-toggle" id="theme-btn">🌙 Dark Mode</button>
+    </nav>
+
+    <section id="proses">
+        <h2>Proses Penanaman Sampai Panen</h2>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=500" alt="Pembibitan">
+                    <div class="slide-title">1. Pembibitan</div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1622383563227-04401ab4e5ea?w=500" alt="Penanaman">
+                    <div class="slide-title">2. Pemindahan ke Lahan</div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1416879598553-3cb3a22f7b87?w=500" alt="Perawatan">
+                    <div class="slide-title">3. Perawatan & Penyiraman</div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1530836369250-ef71a3f5e48d?w=500" alt="Berbuah">
+                    <div class="slide-title">4. Masa Berbuah</div>
+                </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1595856467232-90123c5d6e2c?w=500" alt="Panen">
+                    <div class="slide-title">5. Panen Berkualitas</div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </section>
+
+    <section id="kategori">
+        <h2>Kategori Hasil Kebun</h2>
+
+        <h3 style="margin-top: 40px;">🌶️ Cabe Segar</h3>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1588101886866-b51f0c29ed2c?w=500" alt="Cabe 1"><div class="slide-title">Cabe Merah Besar</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1588101886866-b51f0c29ed2c?w=500" alt="Cabe 2"><div class="slide-title">Cabe Rawit</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1588101886866-b51f0c29ed2c?w=500" alt="Cabe 3"><div class="slide-title">Cabe Keriting</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1588101886866-b51f0c29ed2c?w=500" alt="Cabe 4"><div class="slide-title">Cabe Hijau</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1588101886866-b51f0c29ed2c?w=500" alt="Cabe 5"><div class="slide-title">Panen Cabe</div></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <h3 style="margin-top: 40px;">🌽 Jagung Manis</h3>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=500" alt="Jagung 1"><div class="slide-title">Jagung Siap Panen</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=500" alt="Jagung 2"><div class="slide-title">Jagung Kupas</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=500" alt="Jagung 3"><div class="slide-title">Biji Jagung</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=500" alt="Jagung 4"><div class="slide-title">Kebun Jagung</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=500" alt="Jagung 5"><div class="slide-title">Jagung Rebus</div></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <h3 style="margin-top: 40px;">🍆 Terong Ungu</h3>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1621252178394-118e6c71c1b3?w=500" alt="Terong 1"><div class="slide-title">Terong Segar</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1621252178394-118e6c71c1b3?w=500" alt="Terong 2"><div class="slide-title">Pohon Terong</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1621252178394-118e6c71c1b3?w=500" alt="Terong 3"><div class="slide-title">Terong Bulat</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1621252178394-118e6c71c1b3?w=500" alt="Terong 4"><div class="slide-title">Panen Terong</div></div>
+                <div class="swiper-slide"><img src="https://images.unsplash.com/photo-1621252178394-118e6c71c1b3?w=500" alt="Terong 5"><div class="slide-title">Keranjang Terong</div></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <section id="lokasi">
+        <h2>Lokasi & Temukan Saya</h2>
+        <div class="contact-grid">
+            
+            <div class="map-container" id="lokasi">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.666466904126!2d106.82496411476892!3d-6.175392395529199!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1625026943644!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+
+            <div class="social-links" id="kontak">
+                <a href="#" class="social-link"><i class="fab fa-instagram" style="color: #E1306C;"></i> Instagram: @KebunKasihPangan</a>
+                <a href="#" class="social-link"><i class="fab fa-tiktok" style="color: #000000;"></i> TikTok: @KebunKasihPangan</a>
+                <a href="#" class="social-link"><i class="fab fa-youtube" style="color: #FF0000;"></i> YouTube: Kebun Kasih Pangan</a>
+                <a href="#" class="social-link"><i class="fas fa-globe" style="color: #2E8B57;"></i> Website: www.kebunkasihpangan.com</a>
+                <a href="https://wa.me/6281234567890" class="social-link"><i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp: +62 812-3456-7890</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        // ⚙️ Mengaktifkan Dark Mode
+        const themeBtn = document.getElementById('theme-btn');
+        themeBtn.addEventListener('click', () => {
+            const body = document.body;
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeBtn.textContent = '🌙 Dark Mode';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeBtn.textContent = '☀️ Light Mode';
+            }
+        });
+
+        // ⚙️ Mengaktifkan Slider Swiper
+        const swiper = new Swiper(".mySwiper", {
+            slidesPerView: 1, // Jumlah gambar terlihat di HP
+            spaceBetween: 20,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                960: { slidesPerView: 3 }, // Menampilkan 3 gambar sekaligus di layar lebar
+            }
+        });
+    </script>
+</body>
+</html>
